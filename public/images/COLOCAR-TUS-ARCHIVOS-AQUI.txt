@@ -1,0 +1,4 @@
+Copiá acá tus 3 archivos originales, con estos nombres exactos:
+- logo_LW.png
+- programacion_video.mp4
+- Yo.png
