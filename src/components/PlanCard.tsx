@@ -1,44 +1,59 @@
 import type { Plan } from '../data/plans'
 
-const colorStyles: Record<Plan['color'], { bg: string; buttonBg: string }> = {
-  basico: {
-    bg: 'bg-[linear-gradient(135deg,#FFD700,#C5B000)] shadow-[0_0_15px_rgba(255,215,0,0.5)]',
-    buttonBg: 'bg-[#ffc107]',
-  },
-  intermedio: {
-    bg: 'bg-[linear-gradient(135deg,#1E90FF,#0056b3)] shadow-[0_0_15px_rgba(30,144,255,0.5)]',
-    buttonBg: 'bg-[#007bff]',
-  },
-  avanzado: {
-    bg: 'bg-[linear-gradient(135deg,#FF0000,#8B0000)] shadow-[0_0_15px_rgba(255,0,0,0.5)]',
-    buttonBg: 'bg-[#dc3545]',
-  },
+const tierBars: Record<Plan['color'], number> = {
+  basico: 1,
+  intermedio: 2,
+  avanzado: 3,
 }
 
-export default function PlanCard({ plan }: { plan: Plan }) {
-  const styles = colorStyles[plan.color]
+const tierLabel: Record<Plan['color'], string> = {
+  basico: 'Nivel 1',
+  intermedio: 'Nivel 2',
+  avanzado: 'Nivel 3',
+}
+
+export default function PlanCard({ plan, featured = false }: { plan: Plan; featured?: boolean }) {
+  const bars = tierBars[plan.color]
 
   return (
     <div
-      className={`flex flex-col items-center text-center w-[320px] min-h-[500px] px-5 pt-[30px] pb-5 rounded-[15px] text-black shadow-[0_8px_15px_rgba(0,0,0,0.5)] transition-all hover:-translate-y-2 hover:scale-[1.02] ${styles.bg}`}
+      className={`flex flex-col w-[300px] rounded-xl border p-6 transition-all hover:-translate-y-1 ${
+        featured ? 'border-signal bg-panel-2' : 'border-line bg-panel'
+      }`}
     >
-      <h3 className="text-[1.8rem] font-bold mb-5">{plan.title}</h3>
-      <ul className="text-left inline-block mb-[30px]">
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-end gap-0.5 h-4">
+          {[1, 2, 3].map((i) => (
+            <span
+              key={i}
+              className={`w-1.5 rounded-sm ${i <= bars ? 'bg-signal' : 'bg-line'}`}
+              style={{ height: `${i * 5 + 4}px` }}
+            />
+          ))}
+        </div>
+        <span className="font-mono text-[10px] text-text-dim uppercase tracking-wider">{tierLabel[plan.color]}</span>
+      </div>
+
+      <h3 className="text-lg font-semibold mb-4">{plan.title}</h3>
+
+      <ul className="flex flex-col gap-2.5 mb-6">
         {plan.features.map((f) => (
-          <li key={f} className="relative pl-5 mb-3 [text-shadow:1px_1px_3px_rgba(0,0,0,0.5)] before:content-['✓'] before:absolute before:left-0 before:text-cyan before:font-black">
+          <li key={f} className="flex items-start gap-2 text-[13.5px] text-text-dim leading-snug">
+            <span className="text-signal mt-0.5 shrink-0">✓</span>
             {f}
           </li>
         ))}
       </ul>
-      <div className="mt-auto flex flex-col items-center gap-4">
-        <div className="text-[2rem] font-bold [text-shadow:2px_2px_4px_rgba(0,0,0,0.6)]">{plan.price}</div>
-        <p className="w-[90%] text-[0.95rem] font-bold leading-relaxed text-black text-center m-0">
-          {plan.desc}
-        </p>
+
+      <div className="mt-auto pt-5 border-t border-line">
+        <div className="font-display text-2xl font-semibold mb-2">{plan.price}</div>
+        <p className="text-[13px] text-text-dim leading-relaxed mb-5">{plan.desc}</p>
         {plan.formUrl && (
           <button
             onClick={() => window.open(plan.formUrl, '_blank')}
-            className={`text-black border-none px-6 py-3 rounded-lg cursor-pointer text-[1.1rem] font-semibold shadow-[0_4px_6px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-0.5 hover:brightness-110 ${styles.buttonBg}`}
+            className={`w-full py-2.5 rounded-md text-sm font-semibold transition-all hover:-translate-y-0.5 ${
+              featured ? 'bg-signal text-bg' : 'bg-panel-2 border border-line text-text hover:border-signal'
+            }`}
           >
             Contactar
           </button>

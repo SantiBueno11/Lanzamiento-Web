@@ -5,22 +5,21 @@ interface Props {
 
 export default function About({ titulo, descHtml }: Props) {
   return (
-    <section className="max-w-[900px] mx-auto my-[50px] px-5 py-20 bg-black/50 text-white rounded-[10px] shadow-[0_0_20px_rgba(0,255,255,0.2)]">
-      <div className="flex items-center justify-center gap-10 flex-wrap text-left max-w-[1000px] mx-auto max-md:flex-col-reverse max-md:text-center">
-        <div className="flex-1 basis-[470px] text-left max-md:text-center">
-          <h2 className="text-cyan text-[2.5rem] mb-6 [text-shadow:0_0_15px_rgba(0,255,255,0.6)] text-center md:text-left">
-            {titulo}
-          </h2>
-          <p
-            className="text-[1.15rem] leading-[1.65] font-bold text-[#e6e6e6] max-md:text-base"
-            dangerouslySetInnerHTML={{ __html: descHtml }}
-          />
-        </div>
-        <div className="flex-1 basis-[300px] flex justify-center">
+    <section id="sobre-mi" className="py-20 md:py-24 border-t border-line">
+      <div className="max-w-[1080px] mx-auto px-6 grid md:grid-cols-[0.8fr_1.2fr] gap-12 items-center">
+        <div className="flex justify-center md:justify-start">
           <img
             src="/images/Yo.png"
             alt="Foto de Santiago Bueno"
-            className="w-[280px] max-md:w-[220px] h-auto rounded-[18px] shadow-[0_0_25px_rgba(0,255,255,0.45)] transition-all hover:scale-105 hover:shadow-[0_0_35px_rgba(0,255,255,0.75)]"
+            className="w-[220px] h-[220px] object-cover rounded-xl border border-line"
+          />
+        </div>
+        <div>
+          <div className="font-mono text-xs text-signal uppercase tracking-wider mb-3">Quién está del otro lado</div>
+          <h2 className="font-display font-semibold text-[clamp(1.6rem,2.6vw,2.1rem)] mb-4">{titulo}</h2>
+          <p
+            className="text-text-dim text-[15.5px] leading-relaxed max-w-[60ch]"
+            dangerouslySetInnerHTML={{ __html: descHtml }}
           />
         </div>
       </div>

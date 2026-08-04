@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import Intro from './components/Intro'
-import VideoBackground from './components/VideoBackground'
 import Header from './components/Header'
+import Hero from './components/Hero'
 import About from './components/About'
 import ServicesSelector, { type ServiceId } from './components/ServicesSelector'
 import ServiceContent from './components/ServiceContent'
+import Process from './components/Process'
+import Contact from './components/Contact'
 import Footer from './components/Footer'
-import SocialIcons from './components/SocialIcons'
-import BackToTop from './components/BackToTop'
 import { translations, type Lang } from './data/translations'
 
 function App() {
@@ -17,27 +16,20 @@ function App() {
 
   return (
     <>
-      <Intro />
-      <VideoBackground />
-
-      <Header lang={lang} onChangeLang={setLang} titulo={t.titulo} subtitulo={t.subtitulo} />
-
+      <Header lang={lang} onChangeLang={setLang} />
+      <Hero titulo={t.titulo} subtitulo={t.subtitulo} />
       <About titulo={t.sobre} descHtml={t.desc} />
-
       <ServicesSelector active={activeService} onChange={setActiveService} titulo={t.servicios} />
-
       <ServiceContent
         active={activeService}
-        paquetesTitulo={t.paquetes}
         videoTitulo={t.videoTitulo}
         videoDesc={t.videoDesc}
         flyerTitulo={t.flyerTitulo}
         flyerDesc={t.flyerDesc}
       />
-
+      <Process />
+      <Contact />
       <Footer />
-      <SocialIcons />
-      <BackToTop />
     </>
   )
 }

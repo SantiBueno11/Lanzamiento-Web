@@ -4,67 +4,35 @@ import PlanCard from './PlanCard'
 
 interface Props {
   active: ServiceId
-  paquetesTitulo: string
   videoTitulo: string
   videoDesc: string
   flyerTitulo: string
   flyerDesc: string
 }
 
-export default function ServiceContent({
-  active,
-  paquetesTitulo,
-  videoTitulo,
-  videoDesc,
-  flyerTitulo,
-  flyerDesc,
-}: Props) {
+export default function ServiceContent({ active, videoTitulo, videoDesc, flyerTitulo, flyerDesc }: Props) {
   return (
-    <div className="animate-[fadeIn_0.5s_ease]">
-      {active === 'web' && (
-        <section className="px-5 py-20 text-center">
-          <h2 className="text-[2.5rem] font-bold mb-10 text-cyan [text-shadow:0_0_5px_rgba(0,255,255,0.5)]">
-            {paquetesTitulo}
-          </h2>
-          <div className="flex flex-wrap justify-center items-stretch gap-6">
-            {webPlans.map((p) => (
-              <PlanCard key={p.title} plan={p} />
-            ))}
+    <div className="pb-20 md:pb-24 pt-10">
+      <div className="max-w-[1080px] mx-auto px-6">
+        {active === 'video' && (
+          <div className="mb-8">
+            <h3 className="font-display text-lg font-semibold mb-2">{videoTitulo}</h3>
+            <p className="text-text-dim text-[15px] max-w-[60ch]">{videoDesc}</p>
           </div>
-        </section>
-      )}
+        )}
+        {active === 'flyer' && (
+          <div className="mb-8">
+            <h3 className="font-display text-lg font-semibold mb-2">{flyerTitulo}</h3>
+            <p className="text-text-dim text-[15px] max-w-[60ch]">{flyerDesc}</p>
+          </div>
+        )}
 
-      {active === 'video' && (
-        <section className="px-5 py-20 text-center">
-          <h2 className="text-[2.5rem] font-bold mb-10 text-cyan [text-shadow:0_0_5px_rgba(0,255,255,0.5)]">
-            {videoTitulo}
-          </h2>
-          <p className="text-[1.1rem] text-[#f7f7f7] max-w-[800px] mx-auto -mt-5 mb-10 leading-relaxed">
-            {videoDesc}
-          </p>
-          <div className="flex flex-wrap justify-center items-stretch gap-6">
-            {videoPlans.map((p) => (
-              <PlanCard key={p.title} plan={p} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {active === 'flyer' && (
-        <section className="px-5 py-20 text-center">
-          <h2 className="text-[2.5rem] font-bold mb-10 text-cyan [text-shadow:0_0_5px_rgba(0,255,255,0.5)]">
-            {flyerTitulo}
-          </h2>
-          <p className="text-[1.1rem] text-[#f7f7f7] max-w-[800px] mx-auto -mt-5 mb-10 leading-relaxed">
-            {flyerDesc}
-          </p>
-          <div className="flex flex-wrap justify-center items-stretch gap-6">
-            {flyerPlans.map((p) => (
-              <PlanCard key={p.title} plan={p} />
-            ))}
-          </div>
-        </section>
-      )}
+        <div className="flex flex-wrap gap-5">
+          {active === 'web' && webPlans.map((p, i) => <PlanCard key={p.title} plan={p} featured={i === 1} />)}
+          {active === 'video' && videoPlans.map((p, i) => <PlanCard key={p.title} plan={p} featured={i === 1} />)}
+          {active === 'flyer' && flyerPlans.map((p) => <PlanCard key={p.title} plan={p} />)}
+        </div>
+      </div>
     </div>
   )
 }

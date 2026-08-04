@@ -1,17 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="bg-black text-[#aaa] text-center px-5 py-5 text-[0.9rem] shadow-[0_-2px_10px_rgba(0,0,0,0.5)]">
-      <p>
-        © 2026 Lanzamiento Web |{' '}
-        <a
-          href="https://wa.me/2645875143"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-cyan no-underline transition-colors hover:text-white"
-        >
-          Contactame por WhatsApp
-        </a>
-      </p>
+    <footer className="border-t border-line py-8">
+      <div className="max-w-[1080px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-2 text-center md:text-left">
+        <p className="text-[13px] text-text-dim">© 2026 Lanzamiento Web</p>
+        <p className="font-mono text-xs text-text-dim">San Juan, Argentina</p>
+      </div>
     </footer>
   )
 }
